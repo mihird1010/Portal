@@ -1,0 +1,46 @@
+Endpoints:
+schemelist
+input:
+{
+	"category":1
+}
+output:
+{
+	"schemes":[
+	{
+		"no":1,
+		"name":"Vikas Yojna"
+	},
+	{
+		"no":4,
+		"name":"Balak Yojna"	
+	}
+	]
+}
+getscheme
+input:
+{
+	"scheme_number":5
+}
+output:
+{
+	"name":"Balak Yojna",
+	"content":"1",
+	"state":"Maharashtra",
+	"duration":"12",
+	"qualification":"12th pass",
+	"income_per_annum":20000,
+	"caste":"General",
+	"physically_handicapped":"No",
+	"gender":12,
+	"age":"1-18,30-55",
+	"occupation":"None",
+	"categories":"1,2,7"
+}
+getcategories
+input:
+NONE
+output:
+{
+	"all_categories":[1,2,5,8,5,7,6]
+}

@@ -1,0 +1,66 @@
+body{background-color:#ef5350;
+overflow-y:scroll;}
+ .input-field input[type=text]:focus + label {
+     color: #ef5350;
+   }
+ .input-field input[type=tel]:focus + label {
+     color: #ef5350;
+   }
+ .input-field input[type=email]:focus + label {
+     color: #ef5350;
+   }
+ 
+    .input-field input[type=password]:focus + label {
+     color: #ef5350;
+   }
+   
+    .input-field input[type=tel]:focus {
+     border-bottom: 1px solid #ef5350;
+     box-shadow: 0 1px 0 0 #ef5350;}
+    .input-field input[type=text]:focus {
+     border-bottom: 1px solid #ef5350;
+     box-shadow: 0 1px 0 0 #ef5350;}
+   .input-field input[type=password]:focus {
+     border-bottom: 1px solid #ef5350;
+     box-shadow: 0 1px 0 0 #ef5350;}
+    .input-field input[type=email]:focus {
+     border-bottom: 1px solid #ef5350;
+     box-shadow: 0 1px 0 0 #ef5350;}
+   
+   h4{color: #ef5350;}
+   a{color:#ef5350;}
+   .material-icons :focus + label{color:#ef5350;}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-button {
+  width: 11px;
+  height: 11px;
+}
+::-webkit-scrollbar-thumb {
+  background: #ffffff;
+  border: 0px none #ffffff;
+  border-radius: 33px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ffffff;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #ffffff;
+}
+::-webkit-scrollbar-track {
+  background: #ef5350;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-track:hover {
+  background: #ef5350;
+}
+::-webkit-scrollbar-track:active {
+  background: #ef5350;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}

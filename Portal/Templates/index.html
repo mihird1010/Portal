@@ -1,0 +1,529 @@
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="shortcut icon" href="{% static "img/acmLogo.ico" %}"/>
+	<link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<script src="{% static "js/jquery.min.js" %}"></script>
+	<script src="{% static "js/jquery-ui.css" %}"></script>		
+	<script src="{% static "js/jquery-ui.js" %}"></script>
+	<title>ACM | Checkmate 2016</title>
+</head>
+<body>
+<div id="questionsPage">
+<div id="scorePanel" style="position: fixed;">
+<div style="background: yellow;border-radius: 22px;padding: 9px 2px;">
+	<p style="font-family: 'Lato-Light',sans-serif;font-weight: 100;">TEAM: </p>
+	<p id="teamName" style="font-family: 'Lato-Bold';font-size: 16px;word-wrap: break-word;padding: 5px 5px;">{{ up }}</p>
+</div>
+<div style="background: yellow;border-radius: 22px;position: relative;top: 6px;padding: 9px 4px;">
+	<p style="font-family: 'Lato-Light',sans-serif;font-weight: 100;">POINTS: </p>
+	<p id="points" style="font-size: 16px;font-family: 'Lato-Bold';padding: 5px 5px;">{{ up.score }}</p>
+</div>
+<div style=" position: relative;top: 13px;">
+	<a href="/logout/">
+	<img src="{% static "img/logout.png" %}" style="width: 18%;margin: 0 auto;display: block;">
+	</a>
+</div>
+</div>
+
+<section class="sidePanel" id="questions">
+	<h1>questions</h1>
+	<div id="questionsPanel">
+		<ul id="questionList">
+			
+		</ul>
+	</div>
+</section>
+<section class="mainContent">
+	<div id="questionSection">
+	<div id="qNo"><h1> </h1></div>
+		<div id="questionContainer">
+				
+			<h3>Select a question from right</h3>
+		</div>
+	</div>
+
+	<div id="submitArea">
+
+		<h4>Submit Your Answer</h4>
+		<div id="submitInner">
+		<input type="text" id="submitBox">
+		<button type="submit" id="submitButton">SUBMIT</button>
+		</div>
+		<h5 id="wrongAnswer" style="
+    margin: 11px 12px;
+color: red;
+font-family: Arial;"></h5>
+	</div>
+</section>
+
+<section class="modal submission">
+</section>
+<section class="modal submission">
+	<div class="modalContent">
+		<h1>congrats </h1>
+		<h6>The answer submited successfully</h6>
+		<p>You have earned <span id="Qpoints">50</span> points </p>
+		<div id='modalFooter'>
+			<p id="gotoMarket">Market Place</p>
+			<p class="close" style="left: 232px;">X</p>
+		</div>
+	</div>
+</section>
+
+
+
+
+
+<section class="modal mktPlace" >
+</section>
+<section class="modal mktPlace">
+	<div class='Content' style="top:11vh;">
+	<p class="close" style="width: 14px;
+    float: right;
+    position: relative;
+    left: -25px;
+    top: -15px;
+    border-radius: 3px;">X</p>
+	<h4 style="border-left: 6px solid red;color: red;">Market Place</h4>
+		<div id="priceNotice">
+			<p style="cursor: default;">Each piece costs 100 pts</p>
+		</div>
+		<div id="marketPlacePanel">
+			<ul id="marketPlaceList"></ul>
+		</div>
+	</div>
+</section>
+
+<section class="modal completion" style="position: fixed;">
+</section>
+<section class="modal completion" style="position: fixed;">
+	<div class="modalContent" style="height: 331px;">
+		<h1>congrats </h1>
+		<h6>You have completed the game successfully</h6>
+		<p>Market Score: <span id="Mpoints"></span> points </p>
+		<p>Path Score: <span id="Ppoints"></span> points </p>
+		<p>Total Score: <span id="Tpoints"></span> points </p>
+		<button type="submit" id="completeButton">SUBMIT</button>
+		<p class="close" style="right: 16px;width: 8%;bottom: 17px;/* top: -3px; */position: absolute;/* padding: 1px; */border-radius: 5px;font-family: 'Lato-Light';/* vertical-align: middle; */">X</p>
+	</div>
+</section>
+
+
+</div>
+
+<div id="puzzlePage">
+	<section class="sidePanel">
+		<h1>inventory</h1>
+		<div id="inventoryPanel">
+			<div id="inventoryList" style="padding-left: 6px !important;
+top: 81px;
+position: relative;"></div>
+		</div>
+		<p id="gotoMarket">Market Place</p>
+	</section>
+	
+	<section id="puzzleArea">
+	<img id='initPipe' src="{% static "img/piece5.png" %}">
+	<img id='endPipe0' src="{% static "img/piece6.png" %}">
+		
+		<ul id="puzzlePieces" style="
+    padding-bottom: 11px;line-height: 0px">
+			
+		</ul>
+	
+	<button type="submit" id="validateButton">VALIDATE</button>
+	<button type="submit" id="resetButton" style="background: red;border: red;">RESET</button>
+	</section>
+</div>
+<script type="text/javascript">
+
+
+	var questDiv= document.getElementById('questionList');
+	function questionListF(){
+		for(var i=1;i<=30;i++){
+			if(i<=10)
+				$('#questionList').append("<li id= q"+i+" style='border-top:9px solid #B3EE3A'>"+(i<10?("0"+i):i)+"</li>");
+			if(i>10&&i<=20)
+				$('#questionList').append("<li id= q"+i+" style='border-top:9px solid #FFE303'>"+(i<10?("0"+i):i)+"</li>");
+			if(i>20)
+				$('#questionList').append("<li id= q"+i+" style='border-top:9px solid red'>"+(i<10?("0"+i):i)+"</li>");
+		}
+	}
+
+
+	var inv="{{ up.pipe_inventory}}".split(',');
+
+$(document).ready(function() {
+  $(window).keydown(function(event){
+    if(event.keyCode == 13) {
+      event.preventDefault();
+      return false;
+    }
+  });
+});
+
+ window.onload = function (){	
+
+
+ 		$('#qNo').hide();
+		var arr="{{ up.qa }}".split(',');
+
+		var first=1;
+		for(var a=1;a<=25;a++){
+			var f=0;
+			for(var b=0;b<arr.length-1;b++)
+			{
+				if(parseInt(arr[b])==a){
+					f++;
+				}
+			}
+			if(f>=1)
+			{
+				$('#q'+a).addClass('disabled');
+			}
+			/*
+			if(first){
+				$.ajax({
+					type:'POST',
+					url:'/question/',
+					data: 
+				})
+				$('#qNo h1').html(obj.qno);
+				$('#questionContainer h3').html(obj.content);
+			}*/
+		}
+		
+		makeInv(inv);
+};
+
+	var puzzleDiv= document.getElementById('puzzlePieces');
+	function puzzleListF(){
+		for(var i=1;i<=25;i++){
+			$('#puzzlePieces').append('<li id= p'+i+' class="pipe_grid"></li>');
+			
+		}
+	}
+
+	var inventoryDiv= document.getElementById('inventoryList');
+	function inventoryListF(){
+		for(var i=1;i<=6;i++){
+			$('#inventoryList').append('<div class="pipe_inventory" id= pi'+i+'><p id= pno'+i+' >0</p></div>');
+			//$('#pi'+i+' img').attr('src','/static/img/piece'+i+'.png');
+		}
+	}
+
+	function marketListF(){
+		for(var i=1;i<=6;i++){
+			$('#marketPlaceList').append("<li id= pim"+i+"><img><p>Buy</p></li>");
+			$('#pim'+i+' img').attr('src','/static/img/piece'+i+'.png');	
+		}
+	}
+	marketListF();
+	questionListF();
+	puzzleListF();
+	inventoryListF();
+// drag drop part ===============================================================
+	var pipe_drag_opt ={
+		revert: "invalid",
+		stop: function(){
+			$(this).draggable('option','revert','invalid');
+		}
+	}
+	var x;
+	$('.pipe_img').draggable(pipe_drag_opt);
+	$('.pipe_grid').droppable({
+		drop: function(event,ui){
+			var $this =$(this);
+			x = $this;
+			if($this.find('.pipe_img').length >= 1){
+				ui.draggable.draggable('option','revert',true);
+				return;
+			}
+			ui.draggable.appendTo($this).css({
+				top: "0px",
+				left: "0px"
+			});
+			refresh_pipe_no();
+		}
+	});
+
+
+function refresh_pipe_no(){
+	$('.pipe_inventory').each(function(){
+		var no = $(this).find('.pipe_img').length;
+		$(this).find('p').html(no);
+	})
+}
+
+//increase z-index on drag
+
+// drag drop part============================END===================================
+
+
+	function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function dragend(ev,i){
+	var data = ev.dataTransfer.getData("text");
+	data.id="pis"+i;
+}
+
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+    for(var i=1;i<=25;i++){
+    if($('#p'+i).has( "img" ).length==0)
+				$('#p'+i).attr({ondrop:'drop(event)',ondragover:'allowDrop(event)'});
+			else
+				$('#p'+i).attr({ondrop:'',ondragover:''});
+		}
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    if(document.getElementById(data).parentNode.parentNode.id=="inventoryList")
+	{
+		if(parseInt(document.getElementById(data).nextSibling.innerHTML)>0)
+		{
+	
+		//note
+	    var nodeCopy = document.getElementById(data).cloneNode(true);
+	    var num=nodeCopy.id.substring(3);
+   		nodeCopy.id = "ppi"+num;
+   		ev.target.appendChild(nodeCopy);
+   		if(ev.target.parentNode.parentNode.id!="inventoryList")
+   				document.getElementById(data).nextSibling.innerHTML=parseInt(document.getElementById(data).nextSibling.innerHTML)-1;
+   		
+   		}
+   	}
+
+   else
+    ev.target.appendChild(document.getElementById(data));
+}	
+
+
+
+
+var qNumber;
+var qNos=$('#questionList li');
+qNos.click(function(){
+	$("#qNo").show();
+	$("#wrongAnswer").html("");
+	$('#questionSection').animate({left:'-65vw'},1000);
+	var getId=$(this).attr('id');
+	qNumber=getId.substring(1);
+	$.ajax({
+		type:'POST',
+		url: '/question/',
+		data:{ 'no' : qNumber },
+		success: function(obj){
+		setTimeout(function(){$('#qNo h1').html(obj.qno);
+	$('#questionContainer h3').html(obj.content);},1000);
+	$('#questionSection').animate({left:'0vw'},1000);
+		}
+	});
+	
+});	
+
+$('#submitButton').click(function(){
+	if(qNumber==undefined){
+		$("#wrongAnswer").html("Select a question");
+		return;
+	}
+	$.ajax({
+	type:'POST',
+	url:'/question/',
+	data: { 'no': qNumber , 'answer': $('#submitBox').val() },
+	success : function(response){
+		if(parseInt(response.status)==0)	
+		{
+			$("#wrongAnswer").html("Incorrect Answer");
+		}	
+		else if(parseInt(response.status)==-1){
+			$("#wrongAnswer").html("Already submited");
+			$('#q'+qNumber).addClass('disabled');}
+		var qsar=response.quesatt.split(',');
+			var arr=new Array();
+			for(var i=1;i<=25;i++)
+			{
+				var f=0;
+				for(var j=0;j<qsar.length;j++)
+				{
+					if(parseInt(qsar[j])==i)
+						f++;
+				}
+				arr.push(f);
+
+			}
+			if(arr[qNumber-1]>2)
+			{
+				$('#q'+qNumber).addClass('disabled');
+				if(arr[qNumber-1]>=2)
+					return;
+			}
+		
+		if(parseInt(response.status)==1)
+		{			
+			$('#q'+qNumber).addClass('disabled');
+			$("#wrongAnswer").html("");
+	$('#Qpoints').html(50*parseInt(response.diff));
+	$('#points').html(parseInt(response.score));
+	$('.submission').fadeIn();
+		$('.modalContent').animate({top: '30vh'},1000);
+		}
+	}
+	});
+	
+
+});
+	
+
+$('#gotoMarket').click(function(){
+	$('.mktPlace').css('top','0vh');
+	$('.submission').fadeOut();
+	$('.mktPlace').fadeIn();
+	$('.modalContent').animate({top: '20vh'},1000);
+});
+
+$('.close').click(function(){
+	$('.submission').fadeOut();
+
+	$('.completion').fadeOut();
+	$('.mktPlace').fadeOut();
+	$('.modalContent').animate({top: '20vh'},1000);
+});
+
+$('#puzzlePage #gotoMarket').click(function(){
+	$('#puzzlePieces li img').remove();
+	$('.mktPlace').css('top','100vh');
+	$('.mktPlace').fadeIn();
+	$('.modalContent').animate({top: '20vh'},1000);
+
+});
+/*
+$('.mktPlace').click(function() {
+    $('.mktPlace').fadeOut();
+	$('.modalContent').animate({top: '20vh'},1000);
+  });
+*/
+
+
+$("#marketPlaceList li p").click(function(){
+	var pieceType=$(this).parent().attr('id').substring(3);
+	$.ajax({
+		type:'POST',
+		url: '/buy/',
+		data:{'pipe':pieceType-1,'user':'{{ up }}'},
+		success: function(response){
+		if(response.status)
+		{
+			inv=response.inventory.split(',');
+			
+			makeInv(inv);
+			$('#pno'+pieceType).html(inv[pieceType-1]);
+			$("#points").html(response.score);
+			alert("Selected Piece added to inventory");
+			}
+			else{
+			alert("You do not have enough points");
+			}
+		}
+
+	});
+});
+
+function makeInv(inv)
+{
+	$('.pipe_inventory').html('');
+	for(var i=1;i<=6;i++)
+	{
+		for(var j=0;j<inv[i-1];j++)
+		{
+			$('#pi'+i).append('<img class="pipe_img" id="inp'+i+'" src="/static/img/piece'+i+'.png" >');
+		}
+		$('#pi'+i).append('<p id=pno'+i+'></p>');
+	}
+	$('.pipe_img').draggable(pipe_drag_opt);
+	refresh_pipe_no();
+}
+
+$("#resetButton").click(function(){
+	$(".pipe_grid").html("");
+	makeInv(inv);
+});
+
+	//puzzle validation
+	$("#validateButton").click(function(){
+		
+		var puzzleArray="";
+		var arrayImg=$("#puzzlePieces li").has("img");
+		for(var a=0;a<=25;a++)
+		{
+			f=0;
+			for(var b=0;b<arrayImg.length;b++){
+				if(parseInt(arrayImg[b].id.substring(1))==a){
+					f=1;
+					puzzleArray+=','+parseInt(arrayImg[b].firstChild.id.substring(3));					
+					break;
+				}
+			}
+			if(f==0)
+				puzzleArray+=',0';
+		}
+		puzzleArray=puzzleArray.substring(3);
+		$.ajax({
+			type:'POST',
+			url:'/validate/',
+			data: {'snapshot':puzzleArray,'user':'{{ up }}'},
+			success: function(response){
+					if(response.status){
+					$('#Mpoints').html(response.score);
+					$('#Ppoints').html(response.pathscore);
+					$('#Tpoints').html(parseInt(response.score)+parseInt(response.pathscore));
+					$('.submission').hide();
+					$('.completion').fadeIn();
+					$('.modalContent').animate({top: '30vh'},1000);
+					}
+					else
+					alert('Incorrect Path')
+			}
+		});
+
+	});
+
+	$("#completeButton").click(function(){
+		console.log('{{ u }}');
+		$.ajax({
+			type:'POST',
+			data: { 'user' : '{{ u }}'},
+			url:'/submit/',
+			success: function(response){
+
+			}
+		});
+	});
+
+//
+function liback(){
+	for(var i=1;i<=6;i++)
+		$('#pi'+i).css('background','url(/static/img/piece'+i+'.png)');
+}
+
+liback();
+</script>
+</body>
+<!--
+submit answer call
+validation call
+dec by 1 can this be changed by smeone
+http://www.w3schools.com/js/js_validation.asp
+send the inventory list and match from backend if true update store and send inventory
+same for points - submit answer and points verify from backend if true update store and send status and new points
+send difficulty also
+-->
+</html>
+

@@ -1,0 +1,72 @@
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="shortcut icon" href="{% static "img/acmLogo.ico" %}"/>	
+	<link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
+	<link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400' rel='stylesheet' type='text/css'>
+	<script src="{% static "js/jquery.min.js" %}"></script>
+	<title>Login | Checkmate 2016</title>
+</head>
+<body>
+<div id="loginPage">
+<div style="
+    height: 82px;
+    position: absolute;
+    width: 29vw;
+    background: white;
+    padding: 15px;
+    right: 0;
+    border-radius: 71px;
+">
+<img src="{% static "img/acmLogo.png" %}" style="
+    position: relative;
+    height: 100%;
+    width: auto;
+">
+</div >
+	<a href="/register" style="text-decoration: none;">
+	<div class='Content' style="cursor:pointer;height: 59px !important;
+width: 27vw !important;
+top: 15vh;
+padding-top: 16px;">
+    <h4>Register</h4></div></a>
+	<div class='Content' style="width: 30vw;
+height: 55vh;
+top: 10vh;">
+	<h4>Login</h4>
+	<form style="margin: 60px 0px;" autocomplete="on" method="POST" action="">	
+		<fieldset>
+		<div class="wrapper" style="margin: 0 auto;width: 100%;">
+		<div class="input-container">			
+			<input type='text' name="username" required>
+			<label for="username">Team Name</label>
+			<div class='bar'></div>
+		</div>
+		</div>
+	
+		<div class="wrapper" style="margin: 0 auto;clear: both;width: 100%;">
+		<div class="input-container" >
+			<input type='password' name="password" required>
+			<label for="password">Password</label>
+			<div class='bar'></div>
+		</div>
+		</div>
+		<div class="button-container" style="
+    top: 13px;
+">
+		<input type="submit" value="Sign In"></input>
+		</div>
+		</fieldset>
+	</form>
+	
+	<h3 id="rulebookLink"> > Download the rulebook</h3>
+	</div>
+</div>
+{% if state %}
+<script type="text/javascript">
+	alert('{{ state}}')
+</script>
+{% endif %}
+</body>
+</html>

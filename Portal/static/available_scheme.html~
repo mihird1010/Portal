@@ -1,0 +1,52 @@
+{%load staticfiles%}
+<!DOCTYPE html>
+<html>
+<head>
+
+  <title>SCHEME PORTAL</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+   <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css'%}" media="screen,projection"/>
+  <style>
+body {
+    background-color:#ef5350;}
+</style>
+  </head>
+  <body>
+  <img src="images/PARISHODH.png" style="padding-left:1%;">
+  <div class="card-panel white " style="width: 40%; position:absolute; top:10%; left: 30%; height:auto;">
+    <h4 align="center" style="color:#e53935;"> SCHEME PORTAL </h4>
+	 <div class="inside" style="padding-top: 5%; padding-left: 5%;">
+	 <p>Here are the schemes for which you are eligible </p>
+	 <ul id="schemes_list">
+	 <!-- <li><p id="schemename"><a href="#" style="color:#000000;">Scheme1</a></p></li> -->
+	 </ul>
+	</div>	  
+  </div>
+  <script type="text/javascript" src="{% static 'js/jquery-2.2.1.min.js'%}" ></script>
+  <script type="text/javascript" src="{% static 'js/materialize.min.js'%} "></script>
+  <script type="text/javascript" src="{% static 'js/scheme_arr.js'%} "></script>
+  <script type="text/javascript">
+  var qs = Querystring();
+  var str = qs.get("schemes_data");
+  var v1 = JSON.parse(str);
+  $(document).ready(function(){
+    if(typeof v1.schemes !== 'undefined' && v1.schemes !== null){
+      v1.schemes.forEach(put_schemes);
+    }
+  });
+
+  function put_schemes(element,index,array){
+    // $('#schemes_list').append('<li><p id="schemename"><a href="#" style="color:#000000;" onclick="explain()" data-scno="'+element+'">'+scheme_arr.element+'</a></p></li>');
+    $('#schemes_list').append('<li><p id="schemename"><a href="#" style="color:#000000;" >'+scheme_arr.element+'</a></p></li>')
+  }
+
+ function explain(){
+  var scno;
+  scno = $(this).data("scno");
+  window.location=window.location.origin+'/ques_expl/'+scno+'.html'
+ }
+  </script>
+
+</body>
+</html>
+

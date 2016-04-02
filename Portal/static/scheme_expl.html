@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <title>SCHEME PORTAL</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+   <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
+   <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" media="screen,projection"/>
+    
+  <style>
+body {
+    background-color:#ef5350;}
+</style>
+  </head>
+  <body>
+  <img src="images/PARISHODH.png" style="padding-left:1%;">
+  <div class="card-panel white " style="width: 80%; position:absolute; top:20%; left: 10%; height:auto;">
+    <!-- <h4 align="center" style="color:#e53935;" id="name">  </h4> -->
+	 <div class="inside" >
+	 <!-- <p>INDRADHANUSH</p> -->
+	    <div class="panel-group" id="accordion">
+  <!-- <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+        Collapsible Group 1</a>
+      </h4>
+    </div>
+    <div id="collapse1" class="panel-collapse collapse in">
+      <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+      minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat.</div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+        Collapsible Group 2</a>
+      </h4>
+    </div>
+    <div id="collapse2" class="panel-collapse collapse">
+      <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+      minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat.</div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+        Collapsible Group 3</a>
+      </h4>
+    </div>
+    <div id="collapse3" class="panel-collapse collapse">
+      <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+      minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat.</div>
+    </div>
+  </div>-->
+</div> 
+
+
+  </div>
+  <script type="text/javascript" src='js/jquery-2.2.1.min.js' ></script>
+  <script type="text/javascript" src='js/materialize.min.js'></script>
+  <script type="text/javascript" src='js/bootstrap.min.js'></script>
+  <script type="text/javascript">
+
+  var v1 = getParameterByName("scheme_data");
+  // var v1 = JSON.parse(str);
+  $(document).ready(function(){
+    // console.log(scheme_arr);
+    if(v1!== null){
+      if(typeof v1 !== 'undefined')
+        getscheme(v1,put_data);
+      }
+  });
+
+function getscheme(data,callback){
+  
+  $.ajax({
+  type: 'GET',
+  data: {"scheme_number":data},
+  url: '/getscheme/',
+  success: function(response){
+    callback(response);
+  }
+  });
+}
+  function put_data(data){
+       console.log(data);
+        var i;
+        i=1;
+        for(var key in data.schemes){
+        $('#accordion').append('<div class="panel panel-default"><div class="panel-heading" style="background:#ffeedd;border-radius:0px important!;"><h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse'+i+'">'+key+'</a></h4></div><div id="collapse'+i+'" class="panel-collapse collapse in"><div class="panel-body">'+data.schemes[key]+'</div></div>');
+        i++;
+  }
+  }
+    
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+  </script>
+</body>
+</html>

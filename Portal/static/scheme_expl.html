@@ -10,6 +10,17 @@
   <style>
 body {
     background-color:#ef5350;}
+    body { 
+
+  font-family:'Lato' !important;
+}
+.panel-heading{
+  background: #ffeedd !important; 
+  color:#444444 !important;
+}
+.panel-heading:hover{
+  background:#ffbbaa!important; 
+}
 </style>
   </head>
   <body>
@@ -19,48 +30,7 @@ body {
 	 <div class="inside" >
 	 <!-- <p>INDRADHANUSH</p> -->
 	    <div class="panel-group" id="accordion">
-  <!-- <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-        Collapsible Group 1</a>
-      </h4>
-    </div>
-    <div id="collapse1" class="panel-collapse collapse in">
-      <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-      minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat.</div>
-    </div>
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-        Collapsible Group 2</a>
-      </h4>
-    </div>
-    <div id="collapse2" class="panel-collapse collapse">
-      <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-      minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat.</div>
-    </div>
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-        Collapsible Group 3</a>
-      </h4>
-    </div>
-    <div id="collapse3" class="panel-collapse collapse">
-      <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-      minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat.</div>
-    </div>
-  </div>-->
+ 
 </div> 
 
 
@@ -96,7 +66,7 @@ function getscheme(data,callback){
         var i;
         i=1;
         for(var key in data.schemes){
-        $('#accordion').append('<div class="panel panel-default"><div class="panel-heading" style="background:#ffeedd;border-radius:0px important!;"><h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse'+i+'">'+key+'</a></h4></div><div id="collapse'+i+'" class="panel-collapse collapse in"><div class="panel-body">'+data.schemes[key]+'</div></div>');
+        $('#accordion').append('<div class="panel panel-default"><a data-toggle="collapse" data-parent="#accordion" href="#collapse'+i+'"><div class="panel-heading" style="border-radius:0px important!;"><h4 class="panel-title">'+key+'</h4></div></a><div id="collapse'+i+'" class="panel-collapse collapse in"><div class="panel-body">'+data.schemes[key]+'</div></div>');
         i++;
   }
   }
